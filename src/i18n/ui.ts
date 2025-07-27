@@ -14,6 +14,6 @@ export const labels = {
         'nav.home': 'Home',
         'nav.about': 'About',
         'home.title': 'welcome to my web i18n',
-        'about.title': 'About as'
+        'about.title': 'About us'
     },
 }
