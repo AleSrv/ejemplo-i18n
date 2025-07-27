@@ -1,0 +1,15 @@
+---
+//src\pages\index.astro
+import LayoutIndex from "../../Layouts/LayoutIndex.astro";
+//i18n importaciones
+import { languageList } from "../../i18n/ui";
+import { useTranslations } from "../../i18n/utils";
+const currentLang = Astro.currentLocale || "es";
+const translateLabels = useTranslations(
+  currentLang as keyof typeof languageList
+);
+---
+
+<LayoutIndex title="Inicio | Ejemplo i18n">
+  <h1 class="text-6xl bg-amber-700 p-4 rounded-2xl font-serif">{translateLabels('home.title')}</h1>
+</LayoutIndex>

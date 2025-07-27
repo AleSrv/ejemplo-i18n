@@ -1,0 +1,74 @@
+---
+import "../styles/global.css";
+const { title = "Ejemplo i18n" } = Astro.props;
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+import { languageList } from "../i18n/ui";
+import { useTranslations } from "../i18n/utils";
+const currentLang = Astro.currentLocale || "es";
+const translateLabels = useTranslations(
+  currentLang as keyof typeof languageList
+);
+---
+
+<html lang={currentLang} class="bg-[#292d3e] text-white p-4">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head>
+  <body class="p-0 m-0 box-border h-[100dvh] flex flex-col">
+    <header>
+      <nav>
+        <ul class="list-none flex gap-4 justify-end text-lg">
+          <li class="font-serif">
+            <a href={getRelativeLocaleUrl(currentLang, "/")}
+              >{translateLabels("nav.home")}</a
+            >
+          </li>
+          <li class="font-serif">
+            <a href={getRelativeLocaleUrl(currentLang, "/about")}
+              >{translateLabels("nav.about")}</a
+            >
+          </li>
+          {
+            Object.entries(languageList).map(
+              ([key, label]: [string, string]) => {
+                return (
+                  <li>
+                    <a href={`/${key}`}>
+                      {label === "Español" ? (
+                        <img
+                          class="w-10"
+                          src="https://img.icons8.com/color/48/spain-circular.png"
+                          alt="spain-circular"
+                        />
+                      ) : (
+                        <img
+                          class="w-10"
+                          src="https://img.icons8.com/fluency/48/england-circular.png"
+                          alt="england-circular"
+                        />
+                      )}
+                    </a>
+                  </li>
+                );
+              }
+            )
+          }
+        </ul>
+      </nav>
+    </header>
+    <div class="flex-1 flex justify-center items-center">
+      <main class="flex flex-col items-center">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>
