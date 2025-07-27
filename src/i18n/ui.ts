@@ -13,7 +13,7 @@ export const labels = {
     en: {
         'nav.home': 'Home',
         'nav.about': 'About',
-        'home.title': 'welcome to my web i18n',
+        'home.title': 'welcome to my website i18n',
         'about.title': 'About us'
     },
 }
