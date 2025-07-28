@@ -1,3 +1,5 @@
+//src\i18n\utils.ts
+
 import { labels } from "./ui";
 
 const defaultLang = 'es';

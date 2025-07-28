@@ -1,11 +1,15 @@
 ---
+//src\Layouts\LayoutIndex.astro
+
 import "../styles/global.css";
 const { title = "Ejemplo i18n" } = Astro.props;
 import { getRelativeLocaleUrl } from "astro:i18n";
-
 import { languageList } from "../i18n/ui";
 import { useTranslations } from "../i18n/utils";
+import { switchLocaleUrl } from "../i18n/url";
+
 const currentLang = Astro.currentLocale || "es";
+const currentPath = Astro.url.pathname;
 const translateLabels = useTranslations(
   currentLang as keyof typeof languageList
 );
@@ -38,29 +42,25 @@ const translateLabels = useTranslations(
             >
           </li>
           {
-            Object.entries(languageList).map(
-              ([key, label]: [string, string]) => {
-                return (
-                  <li>
-                    <a href={`/${key}`}>
-                      {label === "Español" ? (
-                        <img
-                          class="w-10"
-                          src="https://img.icons8.com/color/48/spain-circular.png"
-                          alt="spain-circular"
-                        />
-                      ) : (
-                        <img
-                          class="w-10"
-                          src="https://img.icons8.com/fluency/48/england-circular.png"
-                          alt="england-circular"
-                        />
-                      )}
-                    </a>
-                  </li>
-                );
-              }
-            )
+            Object.entries(languageList).map(([key, label]) => (
+              <li>
+                <a href={switchLocaleUrl(currentPath, currentLang, key)}>
+                  {label === "Español" ? (
+                    <img
+                      class="w-10"
+                      src="https://img.icons8.com/color/48/spain-circular.png"
+                      alt="spain-circular"
+                    />
+                  ) : (
+                    <img
+                      class="w-10"
+                      src="https://img.icons8.com/fluency/48/england-circular.png"
+                      alt="england-circular"
+                    />
+                  )}
+                </a>
+              </li>
+            ))
           }
         </ul>
       </nav>

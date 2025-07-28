@@ -1,3 +1,5 @@
+//src\i18n\ui.ts
+
 export const languageList = {
     es: 'Español',
     en: 'English'
